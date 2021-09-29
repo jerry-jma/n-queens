@@ -115,12 +115,24 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      /*
+      //create a variable board and assign this.row().
+      //add a counter
+      //iterate over the board
+        //create a variable referencing this.row()[i][colIndex];
+        //if the variable is equal to 1;
+          //increment the counter
+      //return counter > 1
+      */
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
+      /*
+      //iterate through the board
+        //at each row, were are going to call the callback with argument(board[0][i]);
       return false; // fixme
+      */
     },
 
 
