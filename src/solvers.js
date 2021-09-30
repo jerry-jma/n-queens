@@ -39,7 +39,7 @@ window.findNRooksSolution = function(n, node, counter, solution) {
         //findNRooksSolution(n, currentBoard, counter)
       solution.togglePiece(i, j);
       // currLoc = 1;
-      if (!solution.hasAnyRowConflicts() && !solution.hasAnyColConflicts()) {
+      if (!solution.hasAnyRooksConflicts()) {
         counter ++;
         return findNRooksSolution(n, currBoard, counter, solution);
       }
@@ -62,8 +62,45 @@ window.countNRooksSolutions = function(n) {
 };
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
+// findNQueensSolution
 window.findNQueensSolution = function(n) {
-  var solution = undefined; //fixme
+  // var solution = undefined; //fixme
+  var solution = new Board({n:n});
+  for (var i = 0; i < n; i++) {
+    for (var j = 0; j < n; j++) {
+      solution.togglePiece(i,j);
+      var invokedBoard = innerFunction(n, solution);
+      debugger;
+      console.log(invokedBoard);
+    }
+  }
+
+  var innerFunction = function(n, solution, node, counter) {
+    var counter = counter || 0;
+    var currBoard = node || solution.rows();
+    if (counter === n) {
+      return currBoard;
+    }
+    for (var i = 0; i < currBoard.length; i++) {
+      for (var j = 0; j < currBoard[i].length; j++) {
+        var currLoc = currBoard[i][j];
+        if (currLoc === 1) {
+          continue;
+        }
+        solution.togglePiece(i, j);
+        if (!solution.hasAnyQueensConflicts()) {
+          counter ++;
+          return innerFunction(n, soltuion, currBoard, counter);
+        }
+        // //if(i === 3 && j ===3) {
+        //   return innerFunction(n,currBoard, counter,solution, i++)
+        // }
+        solution.togglePiece(i, j);
+      }
+    }
+    return solution;
+  };
+
 
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
   return solution;
