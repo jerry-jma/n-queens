@@ -221,14 +221,59 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      // create a counter;
+      var counter = 0;
+      // iteater over the inputs
+      for (var i = 0; i < minorDiagonalColumnIndexAtFirstRow.length; i++) {
+        //   check if the the element in the iteration is equal to 1
+        //     increment the counter
+        if (minorDiagonalColumnIndexAtFirstRow[i] === 1) {
+          counter ++;
+        }
+      }
+      // return counter > 1;
+      return counter > 1;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
+      // create an new empty array
+      var newArray = [];
+      // iterate through the board,
+      for (var i = 0; i < this.rows().length; i++) {
+        //   push the indices of first elements into a new array
+        newArray.push([this.rows()[0][i]]);
+      }
+      for (var i = 0; i < this.rows().length - 1; i++) {
+        newArray.push([]);
+      }
+      // iterate over througth the board but make the i= 1
+      for (var i = 1; i < this.rows().length; i++) {
+        //   iterate over this.row()[i] each element
+        for (var j = 0; j < this.rows()[i].length; j++) {
+          //     create a new variable to represent the current item
+          var currentItem = this.rows()[i][j];
+          //     _getthemajordiagonalindex() and assign to a variable
+          var minorDiagonalIndex = this._getFirstRowColumnIndexForMinorDiagonalOn(i, j);
+          //       push to the new array [major diagonal index], the current element
+          newArray[minorDiagonalIndex].push(currentItem);
+        }
+      }
+      // create a flag = false
+      var hasConflict = false;
+      // iterate over the new array
+      for (var i = 0; i < newArray.length; i++) {
+        //   invoke the callback hasMajorDiagonalConflictAt(new array [i])
+        hasConflict = this.hasMinorDiagonalConflictAt(newArray[i]);
+        //   if (hasConflict)
+        //     return true
+        if (hasConflict) {
+          return true;
+        }
+      }
+      // return the flag; // fixme
+      return hasConflict;
     }
-
     /*--------------------  End of Helper Functions  ---------------------*/
 
 
