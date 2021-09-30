@@ -108,31 +108,39 @@
       return false; // fixme
     },
 
-
-
     // COLUMNS - run from top to bottom
     // --------------------------------------------------------------
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      /*
       //create a variable board and assign this.row().
+      var board = this.rows();
       //add a counter
+      var counter = 0;
       //iterate over the board
+      for (var i = 0; i < board.length; i++) {
         //create a variable referencing this.row()[i][colIndex];
+        var currentElement = board[i][colIndex];
         //if the variable is equal to 1;
+        if (currentElement === 1) {
           //increment the counter
-      //return counter > 1
-      */
+          counter++;
+        }
+      }
+      return counter > 1;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      /*
       //iterate through the board
+      for (var i = 0; i < this.rows().length; i++) {
         //at each row, were are going to call the callback with argument(board[0][i]);
-      return false; // fixme
-      */
+        var currentColumn = this.hasColConflictAt(i);
+        if (currentColumn) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
